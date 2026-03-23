@@ -1,0 +1,265 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dalronik Vision Lab — локальная GitHub Pages-платформа для скрининга цветового зрения на основе публично-доменного издания Ishihara.">
+  <title>Dalronik Vision Lab</title>
+  <link rel="preload" as="image" href="assets/images/plates/plate_01.jpg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="dark">
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+  <div class="ambient ambient-c"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#homeScreen" aria-label="Dalronik Vision Lab">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-copy">
+        <strong>Dalronik Vision Lab</strong>
+        <small>Ishihara Color Vision Platform</small>
+      </span>
+    </a>
+
+    <div class="toolbar">
+      <button class="icon-button ripple" id="soundToggle" type="button" aria-pressed="false">
+        <span class="icon-button-label">Sound</span>
+      </button>
+      <button class="icon-button ripple" id="themeToggle" type="button" aria-pressed="false">
+        <span class="icon-button-label">Theme</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="screen screen-home is-active" id="homeScreen" aria-labelledby="heroTitle">
+      <article class="glass-panel hero-panel">
+        <p class="eyebrow">Public-domain medical replica</p>
+        <h1 id="heroTitle">Современная платформа для скрининга цветового зрения.</h1>
+        <p class="hero-text">
+          Локальный фронтенд без сервера, готовый для GitHub Pages. Сайт использует публично-доменный полный выпуск
+          Ishihara 1937 года и проводит поэтапный тест с таймером, адаптивным интерфейсом и диагностическим summary.
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat-card">
+            <strong>24</strong>
+            <span>локальные plates</span>
+          </div>
+          <div class="stat-card">
+            <strong>7 sec</strong>
+            <span>на один экран</span>
+          </div>
+          <div class="stat-card">
+            <strong>0 backend</strong>
+            <span>чистый frontend</span>
+          </div>
+        </div>
+
+        <div class="feature-list">
+          <div class="feature-chip">Glassmorphism UI</div>
+          <div class="feature-chip">Быстрый и полный режим</div>
+          <div class="feature-chip">Таймер и прогресс</div>
+          <div class="feature-chip">Тёмная и светлая темы</div>
+        </div>
+      </article>
+
+      <aside class="glass-panel control-panel">
+        <div>
+          <p class="section-kicker">Режим</p>
+          <div class="mode-grid" role="radiogroup" aria-label="Режим теста">
+            <label class="mode-card">
+              <input type="radio" name="mode" value="quick" checked>
+              <span class="mode-card-ui">
+                <strong>Быстрый</strong>
+                <small>10 plates · компактный скрининг</small>
+              </span>
+            </label>
+            <label class="mode-card">
+              <input type="radio" name="mode" value="full">
+              <span class="mode-card-ui">
+                <strong>Полный</strong>
+                <small>24 local plates · весь bundled набор</small>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="home-notes">
+          <div class="note-card">
+            <span class="note-title">Источник</span>
+            <p>Shinobu Ishihara, complete edition, 1937. Public domain scan via NDL / Wikimedia Commons.</p>
+          </div>
+          <div class="note-card">
+            <span class="note-title">Важно</span>
+            <p>Это образовательный self-check, а не официальное медицинское заключение.</p>
+          </div>
+        </div>
+
+        <button class="primary-button ripple" id="startButton" type="button">Начать проверку</button>
+      </aside>
+    </section>
+
+    <section class="screen screen-preload" id="preloadScreen" aria-labelledby="preloadTitle">
+      <div class="glass-panel preload-panel">
+        <div class="loader-orbit" aria-hidden="true">
+          <div class="loader-core"></div>
+          <div class="loader-scan"></div>
+        </div>
+        <p class="eyebrow">Preloading</p>
+        <h2 id="preloadTitle">Подготавливаем локальные изображения</h2>
+        <p id="preloadCopy" class="muted-copy">Загружаем выбранный режим и запускаем таймер.</p>
+      </div>
+    </section>
+
+    <section class="screen screen-test" id="testScreen" aria-labelledby="plateLabel">
+      <div class="test-meta glass-panel">
+        <div>
+          <p class="section-kicker">Текущая plate</p>
+          <h2 id="plateLabel">Plate 01</h2>
+          <p class="muted-copy" id="platePrompt">Введите число, которое различаете на таблице.</p>
+        </div>
+
+        <div class="meta-side">
+          <div class="timer-ring" id="timerRing" style="--progress: 1;">
+            <div class="timer-value">
+              <strong id="timerValue">7</strong>
+              <span>sec</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-shell glass-panel">
+        <div class="progress-copy">
+          <span id="progressText">1 / 10</span>
+          <span id="modeBadge">Quick</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <article class="glass-panel plate-panel" id="platePanel">
+        <div class="plate-frame">
+          <img id="plateImage" src="assets/images/plates/plate_01.jpg" alt="Ishihara plate">
+          <span class="plate-tag" id="plateTag">#01</span>
+        </div>
+
+        <div class="answer-panel">
+          <label class="answer-label" for="answerInput">Ваш ответ</label>
+          <div class="answer-row">
+            <input id="answerInput" type="text" inputmode="numeric" maxlength="3" autocomplete="off" placeholder="Например, 12">
+            <button class="primary-button ripple" id="submitButton" type="button">Ответить</button>
+          </div>
+
+          <div class="action-row">
+            <button class="secondary-button ripple" id="noAnswerButton" type="button">Не вижу</button>
+            <button class="ghost-button ripple" id="clearAnswerButton" type="button">Очистить</button>
+            <button class="ghost-button ripple" id="skipButton" type="button">Пропустить</button>
+          </div>
+
+          <p class="helper-text">Если число не различается, используйте кнопку «Не вижу». Переход происходит автоматически после таймера.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="screen screen-result" id="resultScreen" aria-labelledby="resultTitle">
+      <div class="glass-panel result-hero">
+        <div class="result-copy">
+          <p class="eyebrow">Result summary</p>
+          <h2 id="resultTitle">Результат готов</h2>
+          <p class="hero-text" id="resultSummary">Система проанализировала ваш паттерн ответов и сравнила его с нормальным, протан- и деутан-профилем.</p>
+          <div class="result-pill" id="resultPill">Нормальное цветовосприятие</div>
+        </div>
+
+        <div class="result-ring-wrap">
+          <div class="result-ring" id="resultRing" style="--ratio: 0.82;">
+            <div class="result-ring-inner">
+              <strong id="resultRingValue">82%</strong>
+              <span>best fit</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-grid">
+        <article class="glass-panel metric-card">
+          <span class="metric-label">Нормальный паттерн</span>
+          <strong class="metric-value" id="normalMatchValue">0 / 0</strong>
+          <p class="muted-copy">Совпадение ответов с типичным reading для нормального зрения.</p>
+        </article>
+
+        <article class="glass-panel metric-card">
+          <span class="metric-label">Диагностический профиль</span>
+          <strong class="metric-value" id="profileValue">Inconclusive</strong>
+          <p class="muted-copy" id="confidenceText">Недостаточно данных для уверенного разделения профиля.</p>
+        </article>
+
+        <article class="glass-panel metric-card">
+          <span class="metric-label">Режим</span>
+          <strong class="metric-value" id="modeResultValue">Quick · 10</strong>
+          <p class="muted-copy">Вы можете перезапустить скрининг в другом режиме в один клик.</p>
+        </article>
+      </div>
+
+      <article class="glass-panel profile-panel">
+        <div class="profile-panel-head">
+          <div>
+            <p class="section-kicker">Profile map</p>
+            <h3>Сопоставление паттернов</h3>
+          </div>
+          <p class="muted-copy">Полоса показывает, насколько ваши ответы совпали с каждым диагностическим профилем.</p>
+        </div>
+
+        <div class="profile-rows">
+          <div class="profile-row">
+            <span>Нормальный</span>
+            <div class="profile-track"><div class="profile-fill" id="barNormal"></div></div>
+            <strong id="scoreNormal">0%</strong>
+          </div>
+          <div class="profile-row">
+            <span>Протанопия</span>
+            <div class="profile-track"><div class="profile-fill accent-warm" id="barProtan"></div></div>
+            <strong id="scoreProtan">0%</strong>
+          </div>
+          <div class="profile-row">
+            <span>Дейтеранопия</span>
+            <div class="profile-track"><div class="profile-fill accent-cool" id="barDeutan"></div></div>
+            <strong id="scoreDeutan">0%</strong>
+          </div>
+          <div class="profile-row profile-row-muted">
+            <span>Тританопия</span>
+            <div class="profile-track dashed"><div class="profile-fill accent-muted" id="barTritan"></div></div>
+            <strong>не оценивалась</strong>
+          </div>
+        </div>
+      </article>
+
+      <article class="glass-panel source-panel">
+        <p class="section-kicker">Clinical note</p>
+        <p id="resultExplanation" class="hero-text">
+          Ishihara хорошо работает как red-green screening, но не предназначен для полноценной blue-yellow диагностики.
+        </p>
+        <p class="muted-copy">Для подтверждения результата нужен офтальмолог и профессиональные тесты вроде HRR или Farnsworth.</p>
+      </article>
+
+      <div class="result-actions">
+        <button class="primary-button ripple" id="restartButton" type="button">Пройти заново</button>
+        <button class="secondary-button ripple" id="switchModeButton" type="button">Сменить режим</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Frontend-only build for GitHub Pages. Relative paths only. No backend.</p>
+  </footer>
+
+  <noscript>
+    <div class="noscript-box">Для работы теста нужен JavaScript.</div>
+  </noscript>
+
+  <script src="script.js"></script>
+</body>
+</html>
